@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GUIGUI17F
 {
-    public class CameraMatrixController : MonoBehaviour
+    public class CameraMatrixHelper : MonoBehaviour
     {
         public float RotateAngle = 0;
         public float Scale = 1;
