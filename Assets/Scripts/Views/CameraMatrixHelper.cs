@@ -26,7 +26,7 @@ namespace GUIGUI17F
             _originMatrixProjection = TargetCamera.projectionMatrix;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             _matrixScale[0, 0] = Scale;
             _matrixScale[1, 1] = Scale;
