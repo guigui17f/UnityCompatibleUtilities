@@ -8,7 +8,7 @@ namespace GUIGUI17F
 {
     public static class ExtensionMethods
     {
-        private static readonly DateTime TimestampStartDate = new DateTime(1970, 1, 1, 0, 0, 0,0);
+        private static readonly DateTime TimestampStartDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         private static StringBuilder _stringBuilder = new StringBuilder();
 
         #region Array
@@ -147,6 +147,106 @@ namespace GUIGUI17F
                 dateTime = dateTime.ToLocalTime();
             }
             return dateTime;
+        }
+
+        #endregion
+
+        #region Transform
+
+        /// <summary>
+        /// resize a quad localScale to a target ratio by decrease x or y axis scale
+        /// </summary>
+        /// <param name="quad">target quad</param>
+        /// <param name="ratio">width/height</param>
+        public static void ResizeToFit(this Transform quad, float ratio)
+        {
+            Vector3 originScale = quad.localScale;
+            float originRatio = originScale.x / originScale.y;
+            if (originRatio > ratio)
+            {
+                //resize width
+                float newWidth = originScale.y * ratio;
+                quad.localScale = new Vector3(newWidth, originScale.y, originScale.z);
+            }
+            else if (originRatio < ratio)
+            {
+                //resize height
+                float newHeight = originScale.x / ratio;
+                quad.localScale = new Vector3(originScale.x, newHeight, originScale.z);
+            }
+        }
+
+        /// <summary>
+        /// resize a quad localScale to a target ratio by increase x or y axis scale
+        /// </summary>
+        /// <param name="quad">target quad</param>
+        /// <param name="ratio">width/height</param>
+        public static void ResizeToFill(this Transform quad, float ratio)
+        {
+            Vector3 originSize = quad.localScale;
+            float originRatio = originSize.x / originSize.y;
+            if (originRatio > ratio)
+            {
+                //resize height
+                float newHeight = originSize.x / ratio;
+                quad.localScale = new Vector3(originSize.x, newHeight, originSize.z);
+            }
+            else if (originRatio < ratio)
+            {
+                //resize width
+                float newWidth = originSize.y * ratio;
+                quad.localScale = new Vector3(newWidth, originSize.y, originSize.z);
+            }
+        }
+
+        #endregion
+
+        #region RectTransform
+
+        /// <summary>
+        /// resize a rect transform to a target ratio by decrease x or y axis size
+        /// </summary>
+        /// <param name="target">target rect transform</param>
+        /// <param name="ratio">width/height</param>
+        public static void ResizeToFit(this RectTransform target, float ratio)
+        {
+            Rect originSize = target.rect;
+            float originRatio = originSize.width / originSize.height;
+            if (originRatio > ratio)
+            {
+                //resize width
+                float newWidth = originSize.height * ratio;
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newWidth);
+            }
+            else if (originRatio < ratio)
+            {
+                //resize height
+                float newHeight = originSize.width / ratio;
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
+            }
+        }
+
+        /// <summary>
+        /// resize a rect transform to a target ratio by increase x or y axis size
+        /// </summary>
+        /// <param name="target">target rect transform</param>
+        /// <param name="ratio">width/height</param>
+        public static void ResizeToFill(this RectTransform target, float ratio)
+        {
+            Rect originSize = target.rect;
+            float originRatio = originSize.width / originSize.height;
+            if (originRatio > ratio)
+            {
+                //resize height
+                float newHeight = originSize.width / ratio;
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
+            }
+            else if (originRatio < ratio)
+            {
+                //resize width
+                float newWidth = originSize.height * ratio;
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newWidth);
+            }
         }
 
         #endregion
