@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GUIGUI17F
 {
@@ -249,6 +250,37 @@ namespace GUIGUI17F
             }
         }
 
+        #endregion
+        
+        #region GameObject
+
+        public static void DestroyAllChildren(this GameObject gameObject)
+        {
+            Transform transform = gameObject.transform;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Object.Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+        
+        /// <summary>
+        /// set layer to this gameObject and all children of it
+        /// </summary>
+        public static void SetLayerInHierarchy(this GameObject gameObject, int layer)
+        {
+            Stack<Transform> transformStack = new Stack<Transform>();
+            transformStack.Push(gameObject.transform);
+            while (transformStack.Count>0)
+            {
+                Transform transform = transformStack.Pop();
+                transform.gameObject.layer = layer;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transformStack.Push(transform.GetChild(i));
+                }
+            }
+        }
+        
         #endregion
     }
 }
