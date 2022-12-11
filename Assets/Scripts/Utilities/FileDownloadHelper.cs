@@ -15,7 +15,7 @@ namespace GUIGUI17F
         private const int MaxRetry = 3;
 
         /// <summary>
-        /// parameter0: all file download success, parameter1: success download file list
+        /// arg0: all file download success, arg1: success download file list
         /// </summary>
         public event Action<bool, List<string>> DownloadFinished;
 

@@ -102,7 +102,7 @@ namespace GUIGUI17F
             _loadSceneOperation.allowSceneActivation = false;
             while (_loadSceneOperation.progress < 0.9f)
             {
-                await Task.Delay(30);
+                await Task.Delay(20);
             }
             _assetsLoaded = true;
             if (CurrentState == SceneState.Transition)

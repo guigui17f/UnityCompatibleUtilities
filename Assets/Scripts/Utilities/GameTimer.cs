@@ -28,6 +28,9 @@ namespace GUIGUI17F
         private Coroutine _loopCoroutine;
         private bool _enabled;
 
+        /// <summary>
+        /// remember to call Dispose() when this instance is no longer needed
+        /// </summary>
         public static GameTimer Create(bool dontDestroyOnLoad)
         {
             GameObject go = new GameObject($"GameTimer_{Time.time:F3}");
@@ -113,7 +116,7 @@ namespace GUIGUI17F
                     CountEvent?.Invoke(CurrentSeconds);
                 }
             }
-            //avoid call Dispose multiple times
+            //avoid call Dispose() multiple times
             if (_autoDispose && enabled)
             {
                 Dispose();

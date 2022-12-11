@@ -9,7 +9,7 @@ namespace GUIGUI17F
         /// <summary>
         /// scan the media files under the given path to update the media library
         /// </summary>
-        /// <param name="callback">parameter: the scan path</param>
+        /// <param name="callback">arg: the scan path</param>
         public static void ScanMedia(string scanPath, Action<string> callback)
         {
             using (AndroidJavaClass mediaScannerConnection = new AndroidJavaClass("android.media.MediaScannerConnection"))

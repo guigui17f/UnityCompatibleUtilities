@@ -10,7 +10,7 @@ namespace GUIGUI17F
     public class VisibilityNotifier : MonoBehaviour
     {
         /// <summary>
-        /// parameter: is visible
+        /// arg: is visible
         /// </summary>
         public event Action<bool> OnVisibilityChanged;
 

@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 
-public static class MathUtility
+namespace GUIGUI17F
 {
-    public static int WeightRandom(int[] weights)
+    public static class MathUtility
     {
-        int weightSum = 0;
-        for (int i = 0; i < weights.Length; i++)
+        public static int WeightRandom(int[] weights)
         {
-            weightSum += weights[i];
-        }
-        float randomValue = Random.value * weightSum;
-
-        for (int i = 0; i < weights.Length; i++)
-        {
-            if (randomValue < weights[i])
+            int weightSum = 0;
+            for (int i = 0; i < weights.Length; i++)
             {
-                return i;
+                weightSum += weights[i];
             }
-            randomValue -= weights[i];
+            float randomValue = Random.value * weightSum;
+
+            for (int i = 0; i < weights.Length; i++)
+            {
+                if (randomValue < weights[i])
+                {
+                    return i;
+                }
+                randomValue -= weights[i];
+            }
+            return weights.Length - 1;
         }
-        return weights.Length - 1;
-    }
-    
-    /// <summary>
-    /// unit: degree
-    /// </summary>
-    public static float GetHorizontalFOV(float verticalFOV, float viewportWidth, float viewportHeight)
-    {
-        return Mathf.Atan(Mathf.Tan(verticalFOV * Mathf.Deg2Rad * 0.5f) * viewportWidth / viewportHeight) * Mathf.Rad2Deg * 2;
-    }
-    
-    /// <summary>
-    /// unit: degree
-    /// </summary>
-    public static float GetVerticalFOV(float horizontalFOV, float viewportWidth, float viewportHeight)
-    {
-        return Mathf.Atan(Mathf.Tan(horizontalFOV * Mathf.Deg2Rad * 0.5f) * viewportHeight / viewportWidth) * Mathf.Rad2Deg * 2;
+
+        /// <summary>
+        /// unit: degree
+        /// </summary>
+        public static float GetHorizontalFOV(float verticalFOV, float viewportWidth, float viewportHeight)
+        {
+            return Mathf.Atan(Mathf.Tan(verticalFOV * Mathf.Deg2Rad * 0.5f) * viewportWidth / viewportHeight) * Mathf.Rad2Deg * 2;
+        }
+
+        /// <summary>
+        /// unit: degree
+        /// </summary>
+        public static float GetVerticalFOV(float horizontalFOV, float viewportWidth, float viewportHeight)
+        {
+            return Mathf.Atan(Mathf.Tan(horizontalFOV * Mathf.Deg2Rad * 0.5f) * viewportHeight / viewportWidth) * Mathf.Rad2Deg * 2;
+        }
     }
 }

@@ -111,7 +111,7 @@ namespace GUIGUI17F
         /// setup ring list data
         /// </summary>
         /// <param name="dataCount">total count of the list data</param>
-        /// <param name="refreshCallback">item data refresh callback，parameter0: data index, parameter1: item renderer</param>
+        /// <param name="refreshCallback">item data refresh callback，arg0: data index, arg1: item renderer</param>
         /// <param name="startIndex">ring list item data start index</param>
         /// <param name="contentPosition">ring list scrollView start position</param>
         public void SetupRingList(int dataCount, Action<int, CanvasRenderer> refreshCallback, int startIndex = 0, Vector2? contentPosition = null)

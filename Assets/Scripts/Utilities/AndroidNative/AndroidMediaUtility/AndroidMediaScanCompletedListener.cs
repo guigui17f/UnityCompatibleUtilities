@@ -7,7 +7,7 @@ namespace GUIGUI17F
     public class AndroidMediaScanCompletedListener : AndroidJavaProxy
     {
         /// <summary>
-        /// parameter: scan path
+        /// arg: scan path
         /// </summary>
         public event Action<string> OnScanCompleted;
 

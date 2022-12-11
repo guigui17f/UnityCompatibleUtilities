@@ -3,7 +3,7 @@
 namespace GUIGUI17F
 {
     /// <summary>
-    /// signal for events without parameters
+    /// signal for events without arguments
     /// </summary>
     public class Signal
     {
@@ -32,7 +32,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with one parameter
+    /// signal for events with one argument
     /// </summary>
     public class Signal<T>
     {
@@ -61,7 +61,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with two parameters
+    /// signal for events with two arguments
     /// </summary>
     public class Signal<T0, T1>
     {
@@ -90,7 +90,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with three parameters
+    /// signal for events with three arguments
     /// </summary>
     public class Signal<T0, T1, T2>
     {
@@ -119,7 +119,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with four parameters
+    /// signal for events with four arguments
     /// </summary>
     public class Signal<T0, T1, T2, T3>
     {
@@ -148,7 +148,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with five parameters
+    /// signal for events with five arguments
     /// </summary>
     public class Signal<T0, T1, T2, T3, T4>
     {
@@ -177,7 +177,7 @@ namespace GUIGUI17F
     }
 
     /// <summary>
-    /// signal for events with six parameters
+    /// signal for events with six arguments
     /// </summary>
     public class Signal<T0, T1, T2, T3, T4, T5>
     {
