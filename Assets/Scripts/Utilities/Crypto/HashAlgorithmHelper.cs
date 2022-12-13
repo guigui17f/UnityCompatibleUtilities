@@ -63,25 +63,36 @@ namespace GUIGUI17F
             }
         }
 
+        public string GetHash(byte[] source)
+        {
+            byte[] hash = GetHashData(source);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
+        }
+
+        public byte[] GetHashData(byte[] source)
+        {
+            return _hashAlgorithm.ComputeHash(source);
+        }
+
         public string GetStringHash(string str, Encoding encoding)
         {
-            byte[] crypto = GetStringHashData(str, encoding);
-            return BitConverter.ToString(crypto).Replace("-", string.Empty);
+            byte[] hash = GetStringHashData(str, encoding);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
         public byte[] GetStringHashData(string str, Encoding encoding)
         {
-            return _hashAlgorithm.ComputeHash(encoding.GetBytes(str));
+            return GetHashData(encoding.GetBytes(str));
         }
 
         public string GetFileHash(string path)
         {
-            byte[] crypto = GetFileHashData(path);
-            if (crypto == null)
+            byte[] hash = GetFileHashData(path);
+            if (hash == null)
             {
                 return null;
             }
-            return BitConverter.ToString(crypto).Replace("-", string.Empty);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
         public byte[] GetFileHashData(string path)
