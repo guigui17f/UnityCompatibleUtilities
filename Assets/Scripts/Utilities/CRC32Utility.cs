@@ -5,7 +5,7 @@ namespace GUIGUI17F
     /// <summary>
     /// CRC32 algorithm utility
     /// </summary>
-    public class CRC32
+    public class CRC32Utility
     {
         private static readonly uint[] CRCTable =
         {

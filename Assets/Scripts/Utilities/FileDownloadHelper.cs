@@ -61,7 +61,7 @@ namespace GUIGUI17F
                     }
 
                     //check file hash
-                    uint checkNum = CRC32.GetFileCRC32(storagePath);
+                    uint checkNum = CRC32Utility.GetFileCRC32(storagePath);
                     if (checkNum.ToString("x") != item.Value)
                     {
                         File.Delete(storagePath);
