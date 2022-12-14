@@ -24,6 +24,8 @@ namespace GUIGUI17F
             HMACSHA512
         }
 
+        public HashAlgorithm CurrentAlgorithm => _hashAlgorithm;
+
         private HashAlgorithm _hashAlgorithm;
 
         public HashAlgorithmHelper(AlgorithmName algorithmName)
@@ -74,13 +76,13 @@ namespace GUIGUI17F
             return _hashAlgorithm.ComputeHash(source);
         }
 
-        public string GetStringHash(string str, Encoding encoding)
+        public string GetHash(string str, Encoding encoding)
         {
-            byte[] hash = GetStringHashData(str, encoding);
+            byte[] hash = GetHashData(str, encoding);
             return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
-        public byte[] GetStringHashData(string str, Encoding encoding)
+        public byte[] GetHashData(string str, Encoding encoding)
         {
             return GetHashData(encoding.GetBytes(str));
         }
