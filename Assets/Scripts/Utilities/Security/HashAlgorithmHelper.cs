@@ -23,8 +23,8 @@ namespace GUIGUI17F
             SHA512,
             HMACSHA512
         }
-
-        public HashAlgorithm CurrentAlgorithm => _hashAlgorithm;
+        
+        public HashAlgorithm Algorithm => _hashAlgorithm;
 
         private HashAlgorithm _hashAlgorithm;
 
@@ -65,31 +65,31 @@ namespace GUIGUI17F
             }
         }
 
-        public string GetHash(byte[] source)
+        public string GetHash(byte[] sourceData)
         {
-            byte[] hash = GetHashData(source);
+            byte[] hash = GetHashData(sourceData);
             return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
-        public byte[] GetHashData(byte[] source)
+        public byte[] GetHashData(byte[] sourceData)
         {
-            return _hashAlgorithm.ComputeHash(source);
+            return _hashAlgorithm.ComputeHash(sourceData);
         }
 
-        public string GetHash(string str, Encoding encoding)
+        public string GetHash(string sourceString, Encoding encoding)
         {
-            byte[] hash = GetHashData(str, encoding);
+            byte[] hash = GetHashData(sourceString, encoding);
             return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
-        public byte[] GetHashData(string str, Encoding encoding)
+        public byte[] GetHashData(string sourceString, Encoding encoding)
         {
-            return GetHashData(encoding.GetBytes(str));
+            return GetHashData(encoding.GetBytes(sourceString));
         }
 
-        public string GetFileHash(string path)
+        public string GetFileHash(string filePath)
         {
-            byte[] hash = GetFileHashData(path);
+            byte[] hash = GetFileHashData(filePath);
             if (hash == null)
             {
                 return null;
@@ -97,13 +97,13 @@ namespace GUIGUI17F
             return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
 
-        public byte[] GetFileHashData(string path)
+        public byte[] GetFileHashData(string filePath)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(filePath))
             {
                 return null;
             }
-            using (FileStream fs = File.OpenRead(path))
+            using (FileStream fs = File.OpenRead(filePath))
             {
                 return _hashAlgorithm.ComputeHash(fs);
             }

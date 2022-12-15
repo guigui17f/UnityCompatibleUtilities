@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace GUIGUI17F
 {
-    public class SymmetricCryptoHelper : IDisposable
+    public class SymmetricAlgorithmHelper : IDisposable
     {
         public enum AlgorithmName
         {
@@ -14,14 +14,14 @@ namespace GUIGUI17F
             TripleDES,
             RC2
         }
-
-        public SymmetricAlgorithm CurrentAlgorithm => _symmetricAlgorithm;
+        
+        public SymmetricAlgorithm Algorithm => _symmetricAlgorithm;
 
         private SymmetricAlgorithm _symmetricAlgorithm;
         private ICryptoTransform _encryptor;
         private ICryptoTransform _decryptor;
 
-        public SymmetricCryptoHelper(AlgorithmName algorithmName, byte[] key, byte[] iv, CipherMode mode = CipherMode.CBC, PaddingMode padding = PaddingMode.PKCS7)
+        public SymmetricAlgorithmHelper(AlgorithmName algorithmName, byte[] key, byte[] iv, CipherMode mode = CipherMode.CBC, PaddingMode padding = PaddingMode.PKCS7)
         {
             switch (algorithmName)
             {
@@ -58,26 +58,26 @@ namespace GUIGUI17F
             _decryptor = _symmetricAlgorithm.CreateDecryptor();
         }
 
-        public byte[] GetEncrypt(byte[] source)
+        public byte[] GetEncrypt(byte[] originData)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 using (CryptoStream cryptoStream = new CryptoStream(memoryStream, _encryptor, CryptoStreamMode.Write))
                 {
-                    cryptoStream.Write(source, 0, source.Length);
+                    cryptoStream.Write(originData, 0, originData.Length);
                     cryptoStream.FlushFinalBlock();
                 }
                 return memoryStream.ToArray();
             }
         }
 
-        public byte[] GetDecrypt(byte[] source)
+        public byte[] GetDecrypt(byte[] encryptedData)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 using (CryptoStream cryptoStream = new CryptoStream(memoryStream, _decryptor, CryptoStreamMode.Write))
                 {
-                    cryptoStream.Write(source, 0, source.Length);
+                    cryptoStream.Write(encryptedData, 0, encryptedData.Length);
                     cryptoStream.FlushFinalBlock();
                 }
                 return memoryStream.ToArray();
