@@ -14,6 +14,11 @@ namespace GUIGUI17F
         private static int _startPosition;
         private static int _endPosition;
 
+        /// <summary>
+        /// request microphone permission before call this method
+        /// </summary>
+        /// <param name="maxSeconds">max record time in seconds</param>
+        /// <returns>whether start record success</returns>
         public static bool StartRecord(int maxSeconds)
         {
             int recordFrequency = DefaultFrequency;
