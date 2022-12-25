@@ -251,7 +251,7 @@ namespace GUIGUI17F
         }
 
         #endregion
-        
+
         #region GameObject
 
         public static void DestroyAllChildren(this GameObject gameObject)
@@ -262,7 +262,7 @@ namespace GUIGUI17F
                 Object.Destroy(transform.GetChild(i).gameObject);
             }
         }
-        
+
         /// <summary>
         /// set layer to this gameObject and all children of it
         /// </summary>
@@ -270,7 +270,7 @@ namespace GUIGUI17F
         {
             Stack<Transform> transformStack = new Stack<Transform>();
             transformStack.Push(gameObject.transform);
-            while (transformStack.Count>0)
+            while (transformStack.Count > 0)
             {
                 Transform transform = transformStack.Pop();
                 transform.gameObject.layer = layer;
@@ -280,7 +280,16 @@ namespace GUIGUI17F
                 }
             }
         }
-        
+
+        #endregion
+
+        #region LayerMask
+
+        public static bool ContainsLayer(this LayerMask mask, int layer)
+        {
+            return ((1 << layer) & mask) > 0;
+        }
+
         #endregion
     }
 }
