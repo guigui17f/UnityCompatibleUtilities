@@ -27,6 +27,7 @@ namespace GUIGUI17F
         private WaitForSeconds _loopIntervalSeconds;
         private Coroutine _loopCoroutine;
         private bool _enabled;
+        private bool _paused;
 
         /// <summary>
         /// remember to call Dispose() when this instance is no longer needed
@@ -75,6 +76,16 @@ namespace GUIGUI17F
             _startSeconds = Mathf.Max(0, _startSeconds);
         }
 
+        public void Pause()
+        {
+            _paused = true;
+        }
+
+        public void Resume()
+        {
+            _paused = false;
+        }
+
         public void ClearListeners()
         {
             CountEvent = null;
@@ -92,8 +103,11 @@ namespace GUIGUI17F
             while (_enabled)
             {
                 yield return _loopIntervalSeconds;
-                CurrentSeconds = Time.time - _startSeconds;
-                CountEvent?.Invoke(CurrentSeconds);
+                if (!_paused)
+                {
+                    CurrentSeconds = Time.time - _startSeconds;
+                    CountEvent?.Invoke(CurrentSeconds);
+                }
             }
         }
 
@@ -103,17 +117,20 @@ namespace GUIGUI17F
             while (enabled && !finish)
             {
                 yield return _loopIntervalSeconds;
-                CurrentSeconds = _countDownSeconds - (Time.time - _startSeconds);
-                finish = CurrentSeconds <= 0;
-                if (finish)
+                if (!_paused)
                 {
-                    CurrentSeconds = 0;
-                    CountEvent?.Invoke(CurrentSeconds);
-                    EndEvent?.Invoke();
-                }
-                else
-                {
-                    CountEvent?.Invoke(CurrentSeconds);
+                    CurrentSeconds = _countDownSeconds - (Time.time - _startSeconds);
+                    finish = CurrentSeconds <= 0;
+                    if (finish)
+                    {
+                        CurrentSeconds = 0;
+                        CountEvent?.Invoke(CurrentSeconds);
+                        EndEvent?.Invoke();
+                    }
+                    else
+                    {
+                        CountEvent?.Invoke(CurrentSeconds);
+                    }
                 }
             }
             //avoid call Dispose() multiple times
