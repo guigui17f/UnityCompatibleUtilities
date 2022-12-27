@@ -1,5 +1,7 @@
 ﻿using System;
+#if UNITY_IOS
 using System.Threading.Tasks;
+#endif
 using UnityEngine;
 #if UNITY_ANDROID
 using UnityEngine.Android;
@@ -24,26 +26,35 @@ namespace GUIGUI17F
             return false;
 #endif
         }
-
-        public static async void RequestPermission(UserAuthorization permission)
-        {
+        
+        /// <summary>
+        /// use the OnRequestPermissionFinish event to receive the result
+        /// </summary>
 #if UNITY_ANDROID
+        public static void RequestPermission(UserAuthorization permission)
+        {
             if (_permissionCallbacks == null)
             {
                 InitializePermissionCallbacks();
             }
             Permission.RequestUserPermission(GetPermissionName(permission), _permissionCallbacks);
+        }
 #elif UNITY_IOS
+        public static async void RequestPermission(UserAuthorization permission)
+        {
             AsyncOperation operation = Application.RequestUserAuthorization(permission);
             while (!operation.isDone)
             {
                 await Task.Delay(30);
             }
             OnRequestPermissionFinish?.Invoke(permission, HasPermission(permission));
-#else
-            OnRequestPermissionFinish?.Invoke(permission, false);
-#endif
         }
+#else
+        public static void RequestPermission(UserAuthorization permission)
+        {
+            OnRequestPermissionFinish?.Invoke(permission, false);
+        }
+#endif
 
 #if UNITY_ANDROID
         private static void InitializePermissionCallbacks()

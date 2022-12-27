@@ -184,19 +184,19 @@ namespace GUIGUI17F
         /// <param name="ratio">width/height</param>
         public static void ResizeToFill(this Transform quad, float ratio)
         {
-            Vector3 originSize = quad.localScale;
-            float originRatio = originSize.x / originSize.y;
+            Vector3 originScale = quad.localScale;
+            float originRatio = originScale.x / originScale.y;
             if (originRatio > ratio)
             {
                 //resize height
-                float newHeight = originSize.x / ratio;
-                quad.localScale = new Vector3(originSize.x, newHeight, originSize.z);
+                float newHeight = originScale.x / ratio;
+                quad.localScale = new Vector3(originScale.x, newHeight, originScale.z);
             }
             else if (originRatio < ratio)
             {
                 //resize width
-                float newWidth = originSize.y * ratio;
-                quad.localScale = new Vector3(newWidth, originSize.y, originSize.z);
+                float newWidth = originScale.y * ratio;
+                quad.localScale = new Vector3(newWidth, originScale.y, originScale.z);
             }
         }
 

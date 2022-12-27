@@ -4,10 +4,10 @@ using System;
 namespace GUIGUI17F
 {
     /// <summary>
-    /// renderer visibility notifier
+    /// renderer visibility trigger
     /// </summary>
     [RequireComponent(typeof(Renderer))]
-    public class VisibilityNotifier : MonoBehaviour
+    public class VisibilityTrigger : MonoBehaviour
     {
         /// <summary>
         /// arg: is visible
