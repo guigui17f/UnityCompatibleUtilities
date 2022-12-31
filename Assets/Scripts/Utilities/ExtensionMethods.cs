@@ -200,6 +200,16 @@ namespace GUIGUI17F
             }
         }
 
+        /// <summary>
+        /// set a transform localPosition to Vector3.zero, localRotation to Quaternion.identity, localScale to Vector3.one
+        /// </summary>
+        public static void ResetTransform(this Transform target)
+        {
+            target.localPosition = Vector3.zero;
+            target.localRotation = Quaternion.identity;
+            target.localScale = Vector3.one;
+        }
+
         #endregion
 
         #region RectTransform
