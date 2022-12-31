@@ -5,9 +5,6 @@ using System.Text;
 
 namespace GUIGUI17F
 {
-    /// <summary>
-    /// remember to call Dispose() when this instance is no longer needed
-    /// </summary>
     public class HashAlgorithmHelper : IDisposable
     {
         public enum AlgorithmName
@@ -28,6 +25,9 @@ namespace GUIGUI17F
 
         private HashAlgorithm _hashAlgorithm;
 
+        /// <summary>
+        /// remember to call Dispose() when this instance is no longer needed
+        /// </summary>
         public HashAlgorithmHelper(AlgorithmName algorithmName)
         {
             switch (algorithmName)

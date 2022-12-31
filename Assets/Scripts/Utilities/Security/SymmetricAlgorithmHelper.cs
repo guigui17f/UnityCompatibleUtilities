@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace GUIGUI17F
 {
@@ -14,14 +15,17 @@ namespace GUIGUI17F
             TripleDES,
             RC2
         }
-        
+
         public SymmetricAlgorithm Algorithm => _symmetricAlgorithm;
 
         private SymmetricAlgorithm _symmetricAlgorithm;
         private ICryptoTransform _encryptor;
         private ICryptoTransform _decryptor;
 
-        public SymmetricAlgorithmHelper(AlgorithmName algorithmName, byte[] key, byte[] iv, CipherMode mode = CipherMode.CBC, PaddingMode padding = PaddingMode.PKCS7)
+        /// <summary>
+        /// remember to call Dispose() when this instance is no longer needed
+        /// </summary>
+        public SymmetricAlgorithmHelper(AlgorithmName algorithmName, byte[] key, byte[] iv, bool autoInit, CipherMode mode = CipherMode.CBC, PaddingMode padding = PaddingMode.PKCS7)
         {
             switch (algorithmName)
             {
@@ -45,10 +49,14 @@ namespace GUIGUI17F
             _symmetricAlgorithm.IV = iv;
             _symmetricAlgorithm.Mode = mode;
             _symmetricAlgorithm.Padding = padding;
+            if (autoInit)
+            {
+                Initialize();
+            }
         }
 
         /// <summary>
-        /// call Initialize() after you finish CurrentAlgorithm custom parameters setup
+        /// call Initialize() after you setup custom parameters for Algorithm property
         /// </summary>
         public void Initialize()
         {
@@ -58,7 +66,13 @@ namespace GUIGUI17F
             _decryptor = _symmetricAlgorithm.CreateDecryptor();
         }
 
-        public byte[] GetEncrypt(byte[] originData)
+        public string Encrypt(string origin, Encoding encoding)
+        {
+            byte[] encryptedData = EncryptData(encoding.GetBytes(origin));
+            return Convert.ToBase64String(encryptedData);
+        }
+
+        public byte[] EncryptData(byte[] originData)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -71,7 +85,13 @@ namespace GUIGUI17F
             }
         }
 
-        public byte[] GetDecrypt(byte[] encryptedData)
+        public string Decrypt(string encrypted, Encoding encoding)
+        {
+            byte[] originData = DecryptData(Convert.FromBase64String(encrypted));
+            return encoding.GetString(originData);
+        }
+
+        public byte[] DecryptData(byte[] encryptedData)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
