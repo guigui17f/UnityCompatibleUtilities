@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GUIGUI17F
 {
@@ -38,6 +39,20 @@ namespace GUIGUI17F
         public static float GetVerticalFOV(float horizontalFOV, float viewportWidth, float viewportHeight)
         {
             return Mathf.Atan(Mathf.Tan(horizontalFOV * Mathf.Deg2Rad * 0.5f) * viewportHeight / viewportWidth) * Mathf.Rad2Deg * 2;
+        }
+
+        /// <summary>
+        /// split every digit of the number into a list
+        /// </summary>
+        public static List<int> SplitNumber(int number)
+        {
+            List<int> digitList = new List<int>();
+            while (number > 0)
+            {
+                digitList.Insert(0, number % 10);
+                number /= 10;
+            }
+            return digitList;
         }
     }
 }
