@@ -7,7 +7,7 @@ namespace GUIGUI17F
     {
         private Texture2D _ormTexture;
 
-        [MenuItem("DKS/Split ORM Texture")]
+        [MenuItem("Tools/Split ORM Texture")]
         public static void ShowWindow()
         {
             var window = GetWindow<ORMTextureSplitter>("ORM Texture Splitter");
