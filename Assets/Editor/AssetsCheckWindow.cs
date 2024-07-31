@@ -20,11 +20,11 @@ namespace GUIGUI17F
         private MethodInfo _clearConsoleMethod;
         private bool _isRunning;
 
-        [MenuItem("Tools/Check Assets")]
+        [MenuItem("Tools/Assets Check Window")]
         private static void ShowWindow()
         {
             var window = GetWindow<AssetsCheckWindow>();
-            window.titleContent = new GUIContent("AssetsCheckWindow");
+            window.titleContent = new GUIContent("Assets Check Window");
         }
 
         private void CreateGUI()
